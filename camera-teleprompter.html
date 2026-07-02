@@ -29,9 +29,15 @@
   }
   #scrollText{
     position:absolute; left:0; right:0; top:0;
-    padding:2vh 6vw 60vh 6vw;
-    color:#ffffff; text-align:center; font-weight:600;
+    padding:2vh 8vw 60vh 22vw;
+    color:#ffffff; text-align:right; font-weight:600;
     white-space:pre-wrap; will-change:transform;
+  }
+  #lensMarker{
+    position:absolute; top:6px; right:6px;
+    width:14px; height:14px; border-radius:50%;
+    border:2px solid var(--gold); background:rgba(240,192,64,0.25);
+    pointer-events:none;
   }
   #tpHintIcon{
     position:absolute; bottom:6px; right:10px;
@@ -114,6 +120,7 @@
 
 <div id="teleprompterOverlay">
   <div id="scrollText">Tocca l'ingranaggio in basso per scrivere il copione.</div>
+  <div id="lensMarker"></div>
   <div id="tpHintIcon">⏸/▶</div>
   <div id="speedIndicator"></div>
 </div>
@@ -251,22 +258,22 @@
     showSpeedIndicator._t = setTimeout(function(){ speedIndicator.style.opacity = '0'; }, 900);
   }
 
-  var touchStartY = null, touchStartX = null, touchMoved = false;
+  var touchStartY = null, touchStartX = null;
   overlay.addEventListener('touchstart', function(e){
     var t = e.touches[0];
-    touchStartY = t.clientY; touchStartX = t.clientX; touchMoved = false;
+    touchStartY = t.clientY; touchStartX = t.clientX;
   }, {passive:true});
-  overlay.addEventListener('touchmove', function(){ touchMoved = true; }, {passive:true});
   overlay.addEventListener('touchend', function(e){
     if(touchStartY === null) return;
     var t = e.changedTouches[0];
     var deltaY = touchStartY - t.clientY;
     var deltaX = touchStartX - t.clientX;
-    var threshold = 30;
-    if(Math.abs(deltaY) > threshold && Math.abs(deltaY) > Math.abs(deltaX)){
+    var swipeThreshold = 30;
+    var tapThreshold = 12;
+    if(Math.abs(deltaY) > swipeThreshold && Math.abs(deltaY) > Math.abs(deltaX)){
       speed = deltaY > 0 ? Math.min(300, speed + 8) : Math.max(5, speed - 8);
       showSpeedIndicator();
-    } else if(!touchMoved){
+    } else if(Math.abs(deltaY) < tapThreshold && Math.abs(deltaX) < tapThreshold){
       playing = !playing;
     }
     touchStartY = null; touchStartX = null;
