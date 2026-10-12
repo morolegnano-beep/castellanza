@@ -5,7 +5,7 @@ Q = f"""
 (
   way({BB})["highway"~"^(motorway|motorway_link|trunk|trunk_link|primary|primary_link|secondary|secondary_link|tertiary|tertiary_link|unclassified|residential|living_street)$"];
 );
-out geom tags;
+out body geom;
 relation({BB})["type"="restriction"];
 out body;
 """
@@ -28,5 +28,5 @@ for el in res["elements"]:
     elif el["type"] == "relation":
         rels.append({"id": el["id"], "tags": el["tags"], "members": el["members"]})
 json.dump({"ways": ways, "restrictions": rels}, open("tools/rete.json", "w"), ensure_ascii=False, separators=(",", ":"))
-# v3
+# v4
 print(len(ways), "ways", len(rels), "restrictions")
