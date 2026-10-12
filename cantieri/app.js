@@ -1,18 +1,21 @@
 (function () {
   'use strict';
   var CENTRO = [45.6105, 8.8975]; // Castellanza
-  var COLORI = { in_corso: '#d97706', programmato: '#64748b', concluso: '#15803d' };
+  var COLORI = { in_corso: '#dc2626', programmato: '#64748b', concluso: '#15803d' };
   var ETICHETTE_STATO = { in_corso: 'Cantiere in corso', programmato: 'Lavori in programma', concluso: 'Lavori conclusi' };
   var ETICHETTE_TIPO = { viabilita: 'Viabilità', avviso: 'Avviso', urgente: 'Urgente', concluso: 'Concluso' };
   var REFRESH_MS = 60000;
   var ant = new URLSearchParams(location.search).get('anteprima');
   var FILE_DATI = ant && /^[a-z0-9]{4,20}$/.test(ant) ? 'anteprima-' + ant + '.json' : 'dati.json';
 
-  var map = L.map('map', { scrollWheelZoom: false }).setView(CENTRO, 15);
+  var map = L.map('map', { scrollWheelZoom: true }).setView(CENTRO, 15);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19, attribution: '&copy; contributori OpenStreetMap'
   }).addTo(map);
   var livello = L.layerGroup().addTo(map);
+  var legendaMappa = L.control({ position: 'bottomleft' });
+  legendaMappa.onAdd = function () { var div = L.DomUtil.create('div', 'legenda-mappa'); L.DomEvent.disableClickPropagation(div); return div; };
+  legendaMappa.addTo(map);
   var linee = {};
   var ultimaVersione = null;
   var datiCorrenti = null;
@@ -62,32 +65,52 @@
     livello.clearLayers(); linee = {};
     var bounds = [];
     var sopra = { programmato: 0, concluso: 1, in_corso: 2 };
-    d.tratti.slice().sort(function (a, b) { return sopra[a.stato] - sopra[b.stato]; }).forEach(function (t) {
+    var tratti = d.tratti.slice().sort(function (a, b) { return sopra[a.stato] - sopra[b.stato]; });
+    // 1) tracciato completo tratteggiato sotto a tutto
+    tratti.forEach(function (t) {
+      if (!t.coords || t.coords.length < 2) return;
+      L.polyline(t.coords, { color: COLORI.programmato, weight: 5, opacity: .9, dashArray: '8 8', interactive: false }).addTo(livello);
+    });
+    // 2) tratti conclusi e in corso sopra il tratteggio
+    tratti.forEach(function (t) {
       if (!t.coords || !t.coords.length) return;
       var popup = '<strong>' + esc(t.nome) + '</strong><br>' + esc(ETICHETTE_STATO[t.stato]) + (t.note ? '<br>' + esc(t.note) : '');
-      var colore = COLORI[t.stato] || '#64748b';
-      var pl = t.coords.length === 1
-        ? L.circleMarker(t.coords[0], { radius: 13, color: '#fff', weight: 3, fillColor: colore, fillOpacity: 1 }).bindPopup(popup)
-        : L.polyline(t.coords, {
-            color: colore, weight: t.stato === 'in_corso' ? 8 : 6,
-            opacity: .9, dashArray: t.stato === 'programmato' ? '8 8' : null
-          }).bindPopup(popup);
-      pl.addTo(livello); linee[t.id] = pl;
+      var colore = COLORI[t.stato] || COLORI.programmato;
+      var pl;
+      if (t.coords.length === 1) {
+        pl = L.circleMarker(t.coords[0], { radius: 12, color: '#fff', weight: 3, fillColor: colore, fillOpacity: 1 });
+      } else if (t.stato === 'programmato') {
+        pl = L.polyline(t.coords, { color: colore, weight: 14, opacity: 0 }); // area cliccabile sul tratteggio
+      } else {
+        pl = L.polyline(t.coords, { color: colore, weight: 8, opacity: .95 });
+      }
+      pl.bindPopup(popup).addTo(livello); linee[t.id] = pl;
       bounds = bounds.concat(t.coords);
     });
-    // Percorsi alternativi consigliati
+    // 3) percorsi alternativi consigliati, sotto al cantiere
     var percorsi = d.percorsi || [];
     percorsi.forEach(function (p) {
-      var pl = L.polyline(p.coords, { color: p.colore, weight: 5, opacity: .85 })
+      var pl = L.polyline(p.coords, { color: p.colore, weight: 5, opacity: .8 })
         .bindPopup('<strong>' + esc(p.titolo) + '</strong>');
       pl.addTo(livello); pl.bringToBack(); linee['perc-' + p.id] = pl;
       bounds = bounds.concat(p.coords);
     });
     $('percorsi').innerHTML = percorsi.length ? '<h3>Percorsi alternativi consigliati</h3>' + percorsi.map(function (p) {
-      return '<div class="percorso"><span class="sw-p" style="background:' + esc(p.colore) + '"></span><div>' +
+      var ind = (p.indicazioni || []).map(function (dir) {
+        return '<div class="direzione"><h4>' + esc(dir.titolo) + '</h4><ol class="passi">' + dir.passi.map(function (x) {
+          return '<li><span>' + esc(x.testo) + '</span>' + (x.distanza ? '<span class="dist">' + esc(x.distanza) + '</span>' : '') + '</li>';
+        }).join('') + '</ol></div>';
+      }).join('');
+      return '<div class="percorso"><span class="sw-p" style="background:' + esc(p.colore) + '"></span><div class="percorso-corpo">' +
         '<button type="button" class="link-tratto tit" data-tratto="perc-' + esc(p.id) + '">' + esc(p.titolo) + '</button>' +
-        paragrafi(p.testo) + '</div></div>';
+        (p.testo ? paragrafi(p.testo) : '') + '<div class="direzioni">' + ind + '</div></div></div>';
     }).join('') : '';
+    // legenda dentro la mappa
+    var voci = ['<div><span class="lg tratteggio"></span>Tracciato completo dei lavori</div>'];
+    if (d.tratti.some(function (t) { return t.stato === 'in_corso'; })) voci.push('<div><span class="lg" style="background:' + COLORI.in_corso + '"></span>Cantiere in corso</div>');
+    if (d.tratti.some(function (t) { return t.stato === 'concluso'; })) voci.push('<div><span class="lg" style="background:' + COLORI.concluso + '"></span>Lavori conclusi</div>');
+    percorsi.forEach(function (p) { voci.push('<div><span class="lg" style="background:' + esc(p.colore) + '"></span>Percorso alternativo consigliato</div>'); });
+    legendaMappa.getContainer().innerHTML = voci.join('');
     var conLinee = bounds.length > 0;
     $('map').style.display = conLinee ? '' : 'none';
     document.querySelector('#mappaBox h2').textContent = conLinee ? 'Dove sono i cantieri' : 'Le strade interessate dai lavori';
