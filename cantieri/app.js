@@ -5,6 +5,8 @@
   var ETICHETTE_STATO = { in_corso: 'Cantiere in corso', programmato: 'Lavori in programma', concluso: 'Lavori conclusi' };
   var ETICHETTE_TIPO = { viabilita: 'Viabilità', avviso: 'Avviso', urgente: 'Urgente', concluso: 'Concluso' };
   var REFRESH_MS = 60000;
+  var ant = new URLSearchParams(location.search).get('anteprima');
+  var FILE_DATI = ant && /^[a-z0-9]{4,20}$/.test(ant) ? 'anteprima-' + ant + '.json' : 'dati.json';
 
   var map = L.map('map', { scrollWheelZoom: false }).setView(CENTRO, 15);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -73,6 +75,19 @@
       pl.addTo(livello); linee[t.id] = pl;
       bounds = bounds.concat(t.coords);
     });
+    // Percorsi alternativi consigliati
+    var percorsi = d.percorsi || [];
+    percorsi.forEach(function (p) {
+      var pl = L.polyline(p.coords, { color: p.colore, weight: 5, opacity: .85 })
+        .bindPopup('<strong>' + esc(p.titolo) + '</strong>');
+      pl.addTo(livello); pl.bringToBack(); linee['perc-' + p.id] = pl;
+      bounds = bounds.concat(p.coords);
+    });
+    $('percorsi').innerHTML = percorsi.length ? '<h3>Percorsi alternativi consigliati</h3>' + percorsi.map(function (p) {
+      return '<div class="percorso"><span class="sw-p" style="background:' + esc(p.colore) + '"></span><div>' +
+        '<button type="button" class="link-tratto tit" data-tratto="perc-' + esc(p.id) + '">' + esc(p.titolo) + '</button>' +
+        paragrafi(p.testo) + '</div></div>';
+    }).join('') : '';
     var conLinee = bounds.length > 0;
     $('map').style.display = conLinee ? '' : 'none';
     document.querySelector('#mappaBox h2').textContent = conLinee ? 'Dove sono i cantieri' : 'Le strade interessate dai lavori';
@@ -131,7 +146,7 @@
   window.addEventListener('resize', inviaAltezza);
 
   function carica() {
-    fetch('dati.json?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
+    fetch(FILE_DATI + '?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
       if (d.aggiornatoIl === ultimaVersione) return;
       ultimaVersione = d.aggiornatoIl;
       render(d);

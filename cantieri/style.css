@@ -67,3 +67,11 @@ select { padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; b
 .leaflet-popup-content { font: 14px/1.4 system-ui, sans-serif; }
 .nota { margin: 6px 0 0; font-size: .82rem; color: var(--muted); }
 .nota:empty { display: none; }
+
+.percorsi:empty { display: none; }
+.percorsi { margin-top: 18px; display: grid; gap: 12px; }
+.percorsi h3 { margin: 0; font-size: 1.05rem; }
+.percorso { display: flex; gap: 12px; align-items: flex-start; border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; }
+.percorso p { margin: 4px 0 0; }
+.percorso .tit { font-weight: 700; }
+.sw-p { flex: none; width: 6px; align-self: stretch; border-radius: 3px; }
