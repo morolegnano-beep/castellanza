@@ -28,4 +28,5 @@ for el in res["elements"]:
     elif el["type"] == "relation":
         rels.append({"id": el["id"], "tags": el["tags"], "members": el["members"]})
 json.dump({"ways": ways, "restrictions": rels}, open("tools/rete.json", "w"), ensure_ascii=False, separators=(",", ":"))
+# v2
 print(len(ways), "ways", len(rels), "restrictions")
