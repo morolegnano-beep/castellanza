@@ -10,10 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: python3 tools/rete.py
+      - run: python3 tools/rete.py > tools/rete_log.txt 2>&1 || true
       - run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
-          git add tools/rete.json
+          git add tools/rete_log.txt
+          [ -f tools/rete.json ] && git add tools/rete.json
           git commit -m "Rete stradale OSM" || echo "nessuna modifica"
           git push
