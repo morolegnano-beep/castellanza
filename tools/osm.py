@@ -11,7 +11,17 @@ out geom tags;
 """
 data = urllib.parse.urlencode({"data": Q}).encode()
 req = urllib.request.Request("https://overpass-api.de/api/interpreter", data=data, headers={"User-Agent": "castellanza-cantieri/1.0"})
-res = json.load(urllib.request.urlopen(req, timeout=120))
+import time
+res = None
+for url in ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter", "https://overpass.private.coffee/api/interpreter"]:
+    for _ in range(2):
+        try:
+            r = urllib.request.Request(url, data=data, headers={"User-Agent": "castellanza-cantieri/1.0"})
+            res = json.load(urllib.request.urlopen(r, timeout=120))
+            break
+        except Exception as e:
+            print("errore", url, e); time.sleep(15)
+    if res: break
 out = []
 for el in res.get("elements", []):
     if el.get("type") == "way":
