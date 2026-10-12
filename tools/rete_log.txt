@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/runner/work/castellanza/castellanza/tools/rete.py", line 26, in <module>
+    ways.append({"id": el["id"], "nodes": el["nodes"], "geom": [[round(p["lat"], 6), round(p["lon"], 6)] for p in el["geometry"]],
+                                          ~~^^^^^^^^^
+KeyError: 'nodes'
