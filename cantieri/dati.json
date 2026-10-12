@@ -3,7 +3,7 @@
     "titolo": "Lavori sulla rete dell’acqua: la viabilità aggiornata",
     "sottotitolo": "Interconnessione idrica Est-Ovest realizzata da CAP Holding",
     "situazioneOggi": "Il cantiere si trova all’incrocio tra corso Sempione, via Pomini, corso Matteotti e via Piave. Nelle ore di punta il traffico rallenta in modo sensibile: se potete, scegliete un percorso diverso.",
-    "contatti": "Per informazioni: Polizia Locale di Castellanza"
+    "contatti": "Pagina a cura del Comune di Castellanza"
   },
   "tratti": [
     { "id": "sempione-matteotti", "nome": "Corso Sempione all’altezza di corso Matteotti (prima fase)", "stato": "in_corso", "coords": [], "note": "" },
@@ -24,5 +24,5 @@
       "inEvidenza": false
     }
   ],
-  "aggiornatoIl": "2026-10-12T11:48:23.000Z"
+  "aggiornatoIl": "2026-10-12T11:55:35.000Z"
 }

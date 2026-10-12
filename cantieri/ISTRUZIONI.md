@@ -7,7 +7,7 @@ Tutto il contenuto sta in `dati.json`. La pagina lo rilegge ogni minuto, quindi 
 
 ## Procedura (per Claude)
 
-1. Stefano manda l'informazione: una mail, un'ordinanza, un appunto.
+1. Stefano manda l'informazione: una mail degli uffici, un'ordinanza, un appunto.
 2. Si scrive un avviso chiaro per i cittadini e lo si aggiunge in cima ad `aggiornamenti`. Deve dire cosa cambia, dove, da quando, per chi e qual è l'alternativa.
 3. Si aggiorna `settings.situazioneOggi` se cambia la situazione del giorno (stringa vuota = riquadro nascosto).
 4. Si aggiorna lo `stato` dei tratti: `programmato`, `in_corso` oppure `concluso`.
@@ -20,4 +20,5 @@ Tutto il contenuto sta in `dati.json`. La pagina lo rilegge ogni minuto, quindi 
 - Se manca qualcosa di essenziale, o se una misura risulta solo proposta e non confermata, si chiede prima di pubblicare.
 - `inEvidenza: true` va solo sull'avviso più importante del momento. Quando viene superato, si toglie dal precedente.
 - `tipo` può essere `viabilita`, `avviso`, `urgente` oppure `concluso`.
+- Non citare mai la Polizia Locale nei testi pubblici. La gestione del traffico e la sicurezza del cantiere spettano a CAP Holding e all'impresa: sulla gestione del traffico si resta generici (es. "il traffico all'incrocio è regolato da personale addetto").
 - `coords` dei tratti: un elenco di [lat, lng] lungo la strada. Se è vuoto, la mappa resta nascosta.
