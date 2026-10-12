@@ -1,0 +1,28 @@
+{
+  "settings": {
+    "titolo": "Lavori sulla rete dell’acqua: la viabilità aggiornata",
+    "sottotitolo": "Interconnessione idrica Est-Ovest realizzata da CAP Holding",
+    "situazioneOggi": "Il cantiere si trova all’incrocio tra corso Sempione, via Pomini, corso Matteotti e via Piave. Nelle ore di punta il traffico rallenta in modo sensibile: se potete, scegliete un percorso diverso.",
+    "contatti": "Per informazioni: Polizia Locale di Castellanza"
+  },
+  "tratti": [
+    { "id": "sempione-matteotti", "nome": "Corso Sempione all’altezza di corso Matteotti (prima fase)", "stato": "in_corso", "coords": [], "note": "" },
+    { "id": "piave-ponte-olona", "nome": "Via Piave e ponte sul fiume Olona", "stato": "programmato", "coords": [], "note": "" },
+    { "id": "gabrio-piola", "nome": "Via Gabrio Piola", "stato": "programmato", "coords": [], "note": "" },
+    { "id": "marconi", "nome": "Via Guglielmo Marconi", "stato": "programmato", "coords": [], "note": "" },
+    { "id": "nizzolina-lombardia", "nome": "Via Nizzolina e derivazione verso via Lombardia", "stato": "programmato", "coords": [], "note": "" },
+    { "id": "sempione-sanguinola", "nome": "Corso Sempione fino a via Sanguinola", "stato": "programmato", "coords": [], "note": "" }
+  ],
+  "aggiornamenti": [
+    {
+      "id": "2026-07-22-avvio",
+      "data": "2026-07-22T09:00:00.000Z",
+      "titolo": "Al via i lavori dell’interconnessione idrica Est-Ovest",
+      "testo": "CAP Holding avvia a Castellanza la posa di circa due chilometri di nuova tubazione dell’acqua potabile tra la parte Est e la parte Ovest della città. Il tracciato interessa via Nizzolina, con una derivazione verso via Lombardia, via Marconi, via Gabrio Piola, via Piave con l’attraversamento del ponte sull’Olona e corso Sempione fino a via Sanguinola. I lavori dureranno circa un anno e avanzeranno per tratte successive. Le modifiche alla viabilità saranno pubblicate su questa pagina man mano che i cantieri si sposteranno.",
+      "trattoId": "",
+      "tipo": "avviso",
+      "inEvidenza": false
+    }
+  ],
+  "aggiornatoIl": "2026-10-12T11:48:23.000Z"
+}

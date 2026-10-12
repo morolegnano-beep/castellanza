@@ -1,0 +1,144 @@
+(function () {
+  'use strict';
+  var CENTRO = [45.6105, 8.8975]; // Castellanza
+  var COLORI = { in_corso: '#d97706', programmato: '#64748b', concluso: '#15803d' };
+  var ETICHETTE_STATO = { in_corso: 'Cantiere in corso', programmato: 'Lavori in programma', concluso: 'Lavori conclusi' };
+  var ETICHETTE_TIPO = { viabilita: 'Viabilità', avviso: 'Avviso', urgente: 'Urgente', concluso: 'Concluso' };
+  var REFRESH_MS = 60000;
+
+  var map = L.map('map', { scrollWheelZoom: false }).setView(CENTRO, 15);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19, attribution: '&copy; contributori OpenStreetMap'
+  }).addTo(map);
+  var livello = L.layerGroup().addTo(map);
+  var linee = {};
+  var ultimaVersione = null;
+  var datiCorrenti = null;
+  var primoFit = true;
+
+  function $(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function paragrafi(t) {
+    return esc(t).split(/\n{2,}/).map(function (p) { return '<p>' + p.replace(/\n/g, '<br>') + '</p>'; }).join('');
+  }
+  function fmtData(iso, conOra) {
+    var d = new Date(iso);
+    var opt = { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Rome' };
+    if (conOra) { opt.hour = '2-digit'; opt.minute = '2-digit'; }
+    return d.toLocaleString('it-IT', opt);
+  }
+
+  function card(a, tratti, evidenza) {
+    var t = tratti.filter(function (x) { return x.id === a.trattoId; })[0];
+    var cls = 'card' + (a.tipo === 'urgente' ? ' urgente' : (evidenza ? ' hl' : ''));
+    return '<article class="' + cls + '" id="agg-' + esc(a.id) + '">' +
+      '<div class="meta"><span class="tag ' + esc(a.tipo) + '">' + esc(ETICHETTE_TIPO[a.tipo] || a.tipo) + '</span>' +
+      '<time datetime="' + esc(a.data) + '">' + esc(fmtData(a.data, true)) + '</time>' +
+      (t ? '<button type="button" class="link-tratto" data-tratto="' + esc(t.id) + '">' + esc(t.nome) + '</button>' : '') +
+      '</div><h3>' + esc(a.titolo) + '</h3>' + paragrafi(a.testo) + '</article>';
+  }
+
+  function render(d) {
+    datiCorrenti = d;
+    var s = d.settings || {};
+    $('titolo').textContent = s.titolo || '';
+    $('sottotitolo').textContent = s.sottotitolo || '';
+    $('stamp').textContent = 'Ultimo aggiornamento: ' + fmtData(d.aggiornatoIl, true);
+    document.title = (s.titolo || 'Cantieri') + ' – Comune di Castellanza';
+
+    if (s.situazioneOggi) { $('oggi').hidden = false; $('oggiTesto').innerHTML = paragrafi(s.situazioneOggi); }
+    else { $('oggi').hidden = true; }
+
+    var ev = d.aggiornamenti.filter(function (a) { return a.inEvidenza || a.tipo === 'urgente'; });
+    $('evidenza').innerHTML = ev.length ? '<h2>In evidenza</h2>' + ev.map(function (a) { return card(a, d.tratti, true); }).join('') : '';
+
+    // Mappa
+    livello.clearLayers(); linee = {};
+    var bounds = [];
+    d.tratti.forEach(function (t) {
+      if (!t.coords || t.coords.length < 2) return;
+      var pl = L.polyline(t.coords, {
+        color: COLORI[t.stato] || '#64748b', weight: t.stato === 'in_corso' ? 8 : 6,
+        opacity: .9, dashArray: t.stato === 'programmato' ? '8 8' : null
+      }).bindPopup('<strong>' + esc(t.nome) + '</strong><br>' + esc(ETICHETTE_STATO[t.stato]) + (t.note ? '<br>' + esc(t.note) : ''));
+      pl.addTo(livello); linee[t.id] = pl;
+      bounds = bounds.concat(t.coords);
+    });
+    var conLinee = bounds.length > 0;
+    $('map').style.display = conLinee ? '' : 'none';
+    document.querySelector('#mappaBox h2').textContent = conLinee ? 'Dove sono i cantieri' : 'Le strade interessate dai lavori';
+    if (conLinee) map.invalidateSize();
+    if (primoFit && bounds.length) { map.fitBounds(bounds, { padding: [24, 24] }); primoFit = false; }
+
+    var ordine = { in_corso: 0, programmato: 1, concluso: 2 };
+    $('legenda').innerHTML = d.tratti.slice().sort(function (a, b) { return ordine[a.stato] - ordine[b.stato]; }).map(function (t) {
+      return '<li><span class="sw ' + esc(t.stato) + '"></span><span>' +
+        (linee[t.id] ? '<button type="button" class="link-tratto" data-tratto="' + esc(t.id) + '">' + esc(t.nome) + '</button>' : esc(t.nome)) +
+        ' <span class="stato">· ' + esc(ETICHETTE_STATO[t.stato]) + '</span></span></li>';
+    }).join('');
+
+    // Filtro
+    var sel = $('filtroTratto'); var cur = sel.value;
+    sel.innerHTML = '<option value="">Tutte le strade</option>' + d.tratti.map(function (t) {
+      return '<option value="' + esc(t.id) + '">' + esc(t.nome) + '</option>';
+    }).join('');
+    sel.value = cur;
+    renderLista();
+
+    $('contatti').innerHTML = s.contatti ? paragrafi(s.contatti) : '';
+    inviaAltezza();
+  }
+
+  function renderLista() {
+    var d = datiCorrenti; if (!d) return;
+    var f = $('filtroTratto').value;
+    var lista = d.aggiornamenti.filter(function (a) { return !f || a.trattoId === f; });
+    $('lista').innerHTML = lista.length ? lista.map(function (a) { return card(a, d.tratti, false); }).join('') :
+      '<p class="vuoto">Nessun aggiornamento per questa strada.</p>';
+    inviaAltezza();
+  }
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-tratto]'); if (!b) return;
+    var id = b.getAttribute('data-tratto');
+    if (linee[id]) {
+      map.fitBounds(linee[id].getBounds(), { padding: [30, 30], maxZoom: 17 });
+      linee[id].openPopup();
+      $('map').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      $('filtroTratto').value = id; renderLista();
+    }
+  });
+  $('filtroTratto').addEventListener('change', renderLista);
+
+  // Altezza automatica dell'iframe nel sito del Comune
+  function inviaAltezza() {
+    if (window.parent === window) return;
+    var h = document.documentElement.scrollHeight;
+    window.parent.postMessage({ tipo: 'cantiere-live-altezza', altezza: h }, '*');
+  }
+  window.addEventListener('resize', inviaAltezza);
+
+  function carica() {
+    fetch('dati.json?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
+      if (d.aggiornatoIl === ultimaVersione) return;
+      ultimaVersione = d.aggiornatoIl;
+      render(d);
+      if (location.hash && primoCaricamento) {
+        var el = document.querySelector(location.hash);
+        if (el) el.scrollIntoView();
+      }
+      primoCaricamento = false;
+    }).catch(function () {
+      $('stamp').textContent = 'Connessione assente: i dati potrebbero non essere aggiornati';
+    });
+  }
+  var primoCaricamento = true;
+  carica();
+  setInterval(carica, REFRESH_MS);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) carica(); });
+})();
