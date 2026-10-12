@@ -59,12 +59,17 @@
     // Mappa
     livello.clearLayers(); linee = {};
     var bounds = [];
-    d.tratti.forEach(function (t) {
-      if (!t.coords || t.coords.length < 2) return;
-      var pl = L.polyline(t.coords, {
-        color: COLORI[t.stato] || '#64748b', weight: t.stato === 'in_corso' ? 8 : 6,
-        opacity: .9, dashArray: t.stato === 'programmato' ? '8 8' : null
-      }).bindPopup('<strong>' + esc(t.nome) + '</strong><br>' + esc(ETICHETTE_STATO[t.stato]) + (t.note ? '<br>' + esc(t.note) : ''));
+    var sopra = { programmato: 0, concluso: 1, in_corso: 2 };
+    d.tratti.slice().sort(function (a, b) { return sopra[a.stato] - sopra[b.stato]; }).forEach(function (t) {
+      if (!t.coords || !t.coords.length) return;
+      var popup = '<strong>' + esc(t.nome) + '</strong><br>' + esc(ETICHETTE_STATO[t.stato]) + (t.note ? '<br>' + esc(t.note) : '');
+      var colore = COLORI[t.stato] || '#64748b';
+      var pl = t.coords.length === 1
+        ? L.circleMarker(t.coords[0], { radius: 13, color: '#fff', weight: 3, fillColor: colore, fillOpacity: 1 }).bindPopup(popup)
+        : L.polyline(t.coords, {
+            color: colore, weight: t.stato === 'in_corso' ? 8 : 6,
+            opacity: .9, dashArray: t.stato === 'programmato' ? '8 8' : null
+          }).bindPopup(popup);
       pl.addTo(livello); linee[t.id] = pl;
       bounds = bounds.concat(t.coords);
     });
@@ -72,6 +77,7 @@
     $('map').style.display = conLinee ? '' : 'none';
     document.querySelector('#mappaBox h2').textContent = conLinee ? 'Dove sono i cantieri' : 'Le strade interessate dai lavori';
     if (conLinee) map.invalidateSize();
+    $('notaMappa').textContent = conLinee ? (s.notaMappa || '') : '';
     if (primoFit && bounds.length) { map.fitBounds(bounds, { padding: [24, 24] }); primoFit = false; }
 
     var ordine = { in_corso: 0, programmato: 1, concluso: 2 };
@@ -106,7 +112,8 @@
     var b = e.target.closest('[data-tratto]'); if (!b) return;
     var id = b.getAttribute('data-tratto');
     if (linee[id]) {
-      map.fitBounds(linee[id].getBounds(), { padding: [30, 30], maxZoom: 17 });
+      if (linee[id].getBounds) map.fitBounds(linee[id].getBounds(), { padding: [30, 30], maxZoom: 17 });
+      else map.setView(linee[id].getLatLng(), 17);
       linee[id].openPopup();
       $('map').scrollIntoView({ behavior: 'smooth', block: 'center' });
     } else {

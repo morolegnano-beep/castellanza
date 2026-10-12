@@ -3,15 +3,366 @@
     "titolo": "Lavori sulla rete dell’acqua: la viabilità aggiornata",
     "sottotitolo": "Interconnessione idrica Est-Ovest realizzata da CAP Holding",
     "situazioneOggi": "Il cantiere si trova all’incrocio tra corso Sempione, via Pomini, corso Matteotti e via Piave. Nelle ore di punta il traffico rallenta in modo sensibile: se potete, scegliete un percorso diverso.",
-    "contatti": "Pagina a cura del Comune di Castellanza"
+    "contatti": "Pagina a cura del Comune di Castellanza",
+    "notaMappa": "Il tracciato sulla mappa è indicativo. Fonte cartografica: OpenStreetMap."
   },
   "tratti": [
-    { "id": "sempione-matteotti", "nome": "Corso Sempione all’altezza di corso Matteotti (prima fase)", "stato": "in_corso", "coords": [], "note": "" },
-    { "id": "piave-ponte-olona", "nome": "Via Piave e ponte sul fiume Olona", "stato": "programmato", "coords": [], "note": "" },
-    { "id": "gabrio-piola", "nome": "Via Gabrio Piola", "stato": "programmato", "coords": [], "note": "" },
-    { "id": "marconi", "nome": "Via Guglielmo Marconi", "stato": "programmato", "coords": [], "note": "" },
-    { "id": "nizzolina-lombardia", "nome": "Via Nizzolina e derivazione verso via Lombardia", "stato": "programmato", "coords": [], "note": "" },
-    { "id": "sempione-sanguinola", "nome": "Corso Sempione fino a via Sanguinola", "stato": "programmato", "coords": [], "note": "" }
+    {
+      "id": "sempione-matteotti",
+      "nome": "Corso Sempione all’altezza di corso Matteotti (prima fase)",
+      "stato": "in_corso",
+      "coords": [
+        [
+          45.614468,
+          8.896563
+        ]
+      ],
+      "note": ""
+    },
+    {
+      "id": "piave-ponte-olona",
+      "nome": "Via Piave e ponte sul fiume Olona",
+      "stato": "programmato",
+      "coords": [
+        [
+          45.614468,
+          8.896563
+        ],
+        [
+          45.614525,
+          8.89656
+        ],
+        [
+          45.614566,
+          8.896573
+        ],
+        [
+          45.614645,
+          8.896662
+        ],
+        [
+          45.615313,
+          8.897654
+        ],
+        [
+          45.615532,
+          8.897933
+        ],
+        [
+          45.615809,
+          8.898239
+        ],
+        [
+          45.615972,
+          8.898437
+        ],
+        [
+          45.616151,
+          8.898691
+        ],
+        [
+          45.616206,
+          8.898767
+        ],
+        [
+          45.616384,
+          8.899017
+        ],
+        [
+          45.616752,
+          8.899547
+        ]
+      ],
+      "note": ""
+    },
+    {
+      "id": "gabrio-piola",
+      "nome": "Via Gabrio Piola",
+      "stato": "programmato",
+      "coords": [
+        [
+          45.616752,
+          8.899547
+        ],
+        [
+          45.616727,
+          8.899572
+        ],
+        [
+          45.616709,
+          8.89959
+        ],
+        [
+          45.61454,
+          8.901726
+        ]
+      ],
+      "note": ""
+    },
+    {
+      "id": "marconi",
+      "nome": "Via Guglielmo Marconi",
+      "stato": "programmato",
+      "coords": [
+        [
+          45.615613,
+          8.903438
+        ],
+        [
+          45.615533,
+          8.903305
+        ],
+        [
+          45.615136,
+          8.902672
+        ],
+        [
+          45.614867,
+          8.902242
+        ],
+        [
+          45.614793,
+          8.90213
+        ],
+        [
+          45.61454,
+          8.901726
+        ]
+      ],
+      "note": ""
+    },
+    {
+      "id": "nizzolina-lombardia",
+      "nome": "Via Nizzolina e derivazione verso via Lombardia",
+      "stato": "programmato",
+      "coords": [
+        [
+          45.618567,
+          8.907712
+        ],
+        [
+          45.618363,
+          8.907489
+        ],
+        [
+          45.618207,
+          8.90729
+        ],
+        [
+          45.617882,
+          8.906867
+        ],
+        [
+          45.617796,
+          8.906754
+        ],
+        [
+          45.617616,
+          8.906508
+        ],
+        [
+          45.617568,
+          8.906442
+        ],
+        [
+          45.617494,
+          8.906344
+        ],
+        [
+          45.617325,
+          8.906112
+        ],
+        [
+          45.617295,
+          8.906071
+        ],
+        [
+          45.617279,
+          8.906049
+        ],
+        [
+          45.617243,
+          8.905998
+        ],
+        [
+          45.61702,
+          8.905687
+        ],
+        [
+          45.616917,
+          8.905545
+        ],
+        [
+          45.616844,
+          8.905419
+        ],
+        [
+          45.616825,
+          8.905387
+        ],
+        [
+          45.616589,
+          8.904982
+        ],
+        [
+          45.616558,
+          8.904929
+        ],
+        [
+          45.616508,
+          8.904842
+        ],
+        [
+          45.616183,
+          8.904353
+        ],
+        [
+          45.616073,
+          8.904188
+        ],
+        [
+          45.615703,
+          8.903581
+        ],
+        [
+          45.615613,
+          8.903438
+        ]
+      ],
+      "note": ""
+    },
+    {
+      "id": "sempione-sanguinola",
+      "nome": "Corso Sempione fino a via Sanguinola",
+      "stato": "programmato",
+      "coords": [
+        [
+          45.614344,
+          8.889026
+        ],
+        [
+          45.614358,
+          8.889139
+        ],
+        [
+          45.614464,
+          8.890014
+        ],
+        [
+          45.614702,
+          8.891912
+        ],
+        [
+          45.614863,
+          8.893329
+        ],
+        [
+          45.614921,
+          8.893781
+        ],
+        [
+          45.614981,
+          8.894267
+        ],
+        [
+          45.615009,
+          8.894505
+        ],
+        [
+          45.615018,
+          8.894588
+        ],
+        [
+          45.615023,
+          8.894652
+        ],
+        [
+          45.615025,
+          8.894681
+        ],
+        [
+          45.615026,
+          8.894724
+        ],
+        [
+          45.615027,
+          8.894763
+        ],
+        [
+          45.615026,
+          8.894799
+        ],
+        [
+          45.615023,
+          8.894848
+        ],
+        [
+          45.61502,
+          8.894908
+        ],
+        [
+          45.615013,
+          8.894974
+        ],
+        [
+          45.615005,
+          8.895033
+        ],
+        [
+          45.614984,
+          8.895174
+        ],
+        [
+          45.614964,
+          8.895282
+        ],
+        [
+          45.614945,
+          8.895372
+        ],
+        [
+          45.614927,
+          8.895443
+        ],
+        [
+          45.614913,
+          8.895495
+        ],
+        [
+          45.614895,
+          8.895554
+        ],
+        [
+          45.614873,
+          8.895621
+        ],
+        [
+          45.614846,
+          8.895696
+        ],
+        [
+          45.614804,
+          8.895802
+        ],
+        [
+          45.61467,
+          8.896111
+        ],
+        [
+          45.61465,
+          8.896156
+        ],
+        [
+          45.614642,
+          8.896173
+        ],
+        [
+          45.614468,
+          8.896563
+        ]
+      ],
+      "note": ""
+    }
   ],
   "aggiornamenti": [
     {
@@ -24,5 +375,5 @@
       "inEvidenza": false
     }
   ],
-  "aggiornatoIl": "2026-10-12T11:55:35.000Z"
+  "aggiornatoIl": "2026-10-12T12:12:43.000Z"
 }

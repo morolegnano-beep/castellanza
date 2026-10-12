@@ -65,3 +65,5 @@ select { padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; b
 .vuoto { color: var(--muted); font-style: italic; }
 .foot { margin-top: 32px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
 .leaflet-popup-content { font: 14px/1.4 system-ui, sans-serif; }
+.nota { margin: 6px 0 0; font-size: .82rem; color: var(--muted); }
+.nota:empty { display: none; }
