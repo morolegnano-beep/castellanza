@@ -1,0 +1,19 @@
+name: Scarica strade da OpenStreetMap
+on:
+  push:
+    paths: ['tools/osm.py']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  osm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/osm.py
+      - run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add tools/osm_strade.json
+          git commit -m "Dati strade OSM" || echo "nessuna modifica"
+          git push
