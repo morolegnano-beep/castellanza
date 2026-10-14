@@ -443,7 +443,7 @@
  "aggiornamenti": [
   {
    "id": "2026-10-14-fase2",
-   "data": "2026-10-14T10:00:00.000Z",
+   "data": "2026-10-14T06:15:00.000Z",
    "tipo": "viabilita",
    "trattoId": "cantiere-sempione-isonzo",
    "inEvidenza": true,
@@ -452,7 +452,7 @@
   },
   {
    "id": "2026-10-14-fase1",
-   "data": "2026-10-14T10:05:00.000Z",
+   "data": "2026-10-14T06:16:00.000Z",
    "tipo": "viabilita",
    "trattoId": "cantiere-sempione-olgiate",
    "inEvidenza": true,
@@ -470,7 +470,7 @@
    "inEvidenza": false
   }
  ],
- "aggiornatoIl": "2026-10-14T06:18:45.000Z",
+ "aggiornatoIl": "2026-10-14T06:20:14.000Z",
  "percorsi": [
   {
    "id": "busto-legnano",
