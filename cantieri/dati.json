@@ -363,13 +363,13 @@
    "inEvidenza": false
   }
  ],
- "aggiornatoIl": "2026-10-12T13:17:57.000Z",
+ "aggiornatoIl": "2026-10-14T06:03:58.000Z",
  "percorsi": [
   {
    "id": "busto-legnano",
    "colore": "#1d4ed8",
    "titolo": "Tra Busto Arsizio e Legnano senza passare dall’incrocio del cantiere",
-   "testo": "Il percorso evita l’incrocio tra corso Sempione, via Pomini, corso Matteotti e via Piave e usa le strade principali. È più lungo di circa mezzo chilometro.",
+   "testo": "Il percorso evita l’incrocio tra corso Sempione, via Pomini, corso Matteotti e via Piave e usa le strade principali. È più lungo di circa mezzo chilometro.\n\nDallo smartphone potete aprirlo direttamente nel navigatore: il pulsante sotto le indicazioni avvia Google Maps dalla vostra posizione, con due tappe lungo il percorso consigliato.",
    "indicazioni": [
     {
      "titolo": "Da Busto Arsizio verso Legnano",
@@ -406,7 +406,8 @@
        "testo": "Prosegui su corso Sempione in direzione Legnano",
        "distanza": "550 m"
       }
-     ]
+     ],
+     "mappa": "https://www.google.com/maps/dir/?api=1&destination=Legnano%2C+MI&waypoints=45.607475%2C8.890293%7C45.606014%2C8.902413&travelmode=driving&dir_action=navigate"
     },
     {
      "titolo": "Da Legnano verso Busto Arsizio",
@@ -443,7 +444,8 @@
        "testo": "Tieni la sinistra e prendi corso Sempione in direzione Busto Arsizio",
        "distanza": "1,2 km"
       }
-     ]
+     ],
+     "mappa": "https://www.google.com/maps/dir/?api=1&destination=Busto+Arsizio%2C+VA&waypoints=45.605813%2C8.901727%7C45.607782%2C8.890113&travelmode=driving&dir_action=navigate"
     }
    ],
    "coords": [

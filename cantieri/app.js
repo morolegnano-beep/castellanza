@@ -99,7 +99,10 @@
       var ind = (p.indicazioni || []).map(function (dir) {
         return '<div class="direzione"><h4>' + esc(dir.titolo) + '</h4><ol class="passi">' + dir.passi.map(function (x) {
           return '<li><span>' + esc(x.testo) + '</span>' + (x.distanza ? '<span class="dist">' + esc(x.distanza) + '</span>' : '') + '</li>';
-        }).join('') + '</ol></div>';
+        }).join('') + '</ol>' +
+          (dir.mappa && /^https:\/\/www\.google\.com\/maps\//.test(dir.mappa)
+            ? '<a class="btn-maps" href="' + esc(dir.mappa) + '" target="_blank" rel="noopener">Apri il percorso in Google Maps</a>' : '') +
+          '</div>';
       }).join('');
       return '<div class="percorso"><span class="sw-p" style="background:' + esc(p.colore) + '"></span><div class="percorso-corpo">' +
         '<button type="button" class="link-tratto tit" data-tratto="perc-' + esc(p.id) + '">' + esc(p.titolo) + '</button>' +
