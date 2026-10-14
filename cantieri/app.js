@@ -47,7 +47,23 @@
       '</div><h3>' + esc(a.titolo) + '</h3>' + paragrafi(a.testo) + '</article>';
   }
 
-  function render(d) {
+  function oggiRoma() {
+    var p = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Rome', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+    return p; // YYYY-MM-DD
+  }
+  function attivo(x, oggi) { return (!x.dal || oggi >= x.dal) && (!x.al || oggi <= x.al); }
+  var giornoMostrato = null;
+  function render(dOrig) {
+    var oggi = oggiRoma(); giornoMostrato = oggi;
+    var d = Object.assign({}, dOrig);
+    d.tratti = (dOrig.tratti || []).filter(function (t) { return attivo(t, oggi); });
+    d.percorsi = (dOrig.percorsi || []).filter(function (p) { return attivo(p, oggi); });
+    d.settings = Object.assign({}, dOrig.settings);
+    var sit = (d.settings.situazioni || []).filter(function (x) { return attivo(x, oggi); })[0];
+    if (sit) d.settings.situazioneOggi = sit.testo;
+    d.aggiornamenti = (dOrig.aggiornamenti || []).map(function (a) {
+      return (a.evidenzaAl && oggi > a.evidenzaAl) ? Object.assign({}, a, { inEvidenza: false }) : a;
+    });
     datiCorrenti = d;
     var s = d.settings || {};
     $('titolo').textContent = s.titolo || '';
@@ -90,10 +106,10 @@
     // 3) percorsi alternativi consigliati, sotto al cantiere
     var percorsi = d.percorsi || [];
     percorsi.forEach(function (p) {
-      var pl = L.polyline(p.coords, { color: p.colore, weight: 5, opacity: .8 })
+      var pl = L.polyline(p.linee || p.coords, { color: p.colore, weight: 5, opacity: .8 })
         .bindPopup('<strong>' + esc(p.titolo) + '</strong>');
       pl.addTo(livello); pl.bringToBack(); linee['perc-' + p.id] = pl;
-      bounds = bounds.concat(p.coords);
+      (p.linee || [p.coords]).forEach(function (l) { bounds = bounds.concat(l); });
     });
     $('percorsi').innerHTML = percorsi.length ? '<h3>Percorsi alternativi consigliati</h3>' + percorsi.map(function (p) {
       var ind = (p.indicazioni || []).map(function (dir) {
@@ -101,7 +117,7 @@
           return '<li><span>' + esc(x.testo) + '</span>' + (x.distanza ? '<span class="dist">' + esc(x.distanza) + '</span>' : '') + '</li>';
         }).join('') + '</ol>' +
           (dir.mappa && /^https:\/\/www\.google\.com\/maps\//.test(dir.mappa)
-            ? '<a class="btn-maps" href="' + esc(dir.mappa) + '" target="_blank" rel="noopener">Apri il percorso in Google Maps</a>' : '') +
+            ? '<a class="btn-maps" style="background:' + esc(p.colore) + '" href="' + esc(dir.mappa) + '" target="_blank" rel="noopener">Apri il percorso in Google Maps</a>' : '') +
           '</div>';
       }).join('');
       return '<div class="percorso"><span class="sw-p" style="background:' + esc(p.colore) + '"></span><div class="percorso-corpo">' +
@@ -112,7 +128,7 @@
     var voci = ['<div><span class="lg tratteggio"></span>Tracciato completo dei lavori</div>'];
     if (d.tratti.some(function (t) { return t.stato === 'in_corso'; })) voci.push('<div><span class="lg" style="background:' + COLORI.in_corso + '"></span>Cantiere in corso</div>');
     if (d.tratti.some(function (t) { return t.stato === 'concluso'; })) voci.push('<div><span class="lg" style="background:' + COLORI.concluso + '"></span>Lavori conclusi</div>');
-    percorsi.forEach(function (p) { voci.push('<div><span class="lg" style="background:' + esc(p.colore) + '"></span>Percorso alternativo consigliato</div>'); });
+    percorsi.forEach(function (p) { voci.push('<div><span class="lg" style="background:' + esc(p.colore) + '"></span>' + esc(p.etichetta || 'Percorso alternativo consigliato') + '</div>'); });
     legendaMappa.getContainer().innerHTML = voci.join('');
     var conLinee = bounds.length > 0;
     $('map').style.display = conLinee ? '' : 'none';
@@ -173,7 +189,7 @@
 
   function carica() {
     fetch(FILE_DATI + '?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
-      if (d.aggiornatoIl === ultimaVersione) return;
+      if (d.aggiornatoIl === ultimaVersione && oggiRoma() === giornoMostrato) return;
       ultimaVersione = d.aggiornatoIl;
       render(d);
       if (location.hash && primoCaricamento) {
