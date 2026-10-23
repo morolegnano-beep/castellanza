@@ -30,3 +30,31 @@ for el in res["elements"]:
 json.dump({"ways": ways, "restrictions": rels}, open("tools/rete.json", "w"), ensure_ascii=False, separators=(",", ":"))
 # v4
 print(len(ways), "ways", len(rels), "restrictions")
+
+# v5: cimiteri, ingressi e parcheggi vicini (stampati nel log)
+try:
+    Q2 = f"""
+[out:json][timeout:90];
+(way({BB})["landuse"="cemetery"];way({BB})["amenity"="grave_yard"];relation({BB})["landuse"="cemetery"];)->.c;
+.c out tags geom;
+node(w.c)["entrance"];out;
+node(w.c)["barrier"];out;
+nwr(around.c:350)["amenity"="parking"];out tags center;
+"""
+    d2 = urllib.parse.urlencode({"data": Q2}).encode()
+    r2 = None
+    for url in ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter", "https://overpass.private.coffee/api/interpreter"]:
+        try:
+            r2 = json.load(urllib.request.urlopen(urllib.request.Request(url, data=d2, headers={"User-Agent": "castellanza-cantieri/1.0"}), timeout=120)); break
+        except Exception as e:
+            print("errore poi", url, e)
+    for el in (r2 or {}).get("elements", []):
+        g = el.get("geometry") or []
+        c = el.get("center") or ({"lat": el["lat"], "lon": el["lon"]} if "lat" in el else None)
+        if g:
+            la = [p["lat"] for p in g]; lo = [p["lon"] for p in g]
+            print("POI", el["type"], el["id"], json.dumps(el.get("tags", {}), ensure_ascii=False), "bbox", round(min(la),6), round(min(lo),6), round(max(la),6), round(max(lo),6), "geom", json.dumps([[round(p["lat"],6), round(p["lon"],6)] for p in g]))
+        else:
+            print("POI", el["type"], el["id"], json.dumps(el.get("tags", {}), ensure_ascii=False), "at", c and round(c["lat"],6), c and round(c["lon"],6))
+except Exception as e:
+    print("errore poi", e)
