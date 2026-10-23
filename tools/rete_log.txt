@@ -1,2 +1,72 @@
-errore https://overpass-api.de/api/interpreter HTTP Error 504: Gateway Timeout
-3571 ways 293 restrictions
+3572 ways 293 restrictions
+POI way 99020331 {"landuse": "cemetery", "name": "Cimitero di Castellanza", "wikidata": "Q30148231"} bbox 45.61493 8.892361 45.616747 8.894898 geom [[45.61493, 8.892737], [45.615038, 8.893643], [45.615074, 8.893676], [45.615083, 8.893747], [45.615092, 8.893818], [45.615066, 8.893865], [45.615187, 8.894898], [45.61537, 8.894852], [45.615501, 8.89482], [45.615548, 8.894808], [45.615598, 8.894778], [45.61568, 8.89473], [45.615722, 8.894704], [45.615871, 8.894616], [45.616237, 8.894396], [45.616242, 8.894374], [45.616247, 8.894348], [45.61625, 8.894336], [45.616306, 8.894295], [45.616414, 8.894212], [45.616747, 8.893865], [45.61663, 8.893379], [45.616626, 8.893356], [45.61646, 8.892435], [45.616447, 8.892361], [45.61493, 8.892737]]
+POI way 163449875 {"addr:postcode": "21055", "addr:street": "Via Ambrogio Colombo", "contact:facebook": "comunegorlaminore", "contact:twitter": "gorlamininforma", "landuse": "cemetery", "name": "Cimitero di Prospiano", "opening_hours": "Mo-Su 09:00-17:00", "phone": "+39 0331 607226", "website": "https://comune.gorlaminore.va.it/luoghi/2820997/cimitero-prospiano"} bbox 45.63671 8.905714 45.637611 8.906978 geom [[45.636863, 8.906978], [45.636759, 8.906276], [45.63671, 8.905911], [45.63682, 8.905881], [45.637358, 8.905714], [45.637429, 8.906185], [45.637455, 8.906358], [45.637549, 8.906329], [45.637611, 8.906742], [45.636863, 8.906978]]
+POI way 228201715 {"landuse": "cemetery", "name": "Cimitero di Olgiate Olona", "wikidata": "Q56256712"} bbox 45.627259 8.881087 45.628926 8.883034 geom [[45.628716, 8.881087], [45.62873, 8.881167], [45.628739, 8.881218], [45.628718, 8.881263], [45.628719, 8.881282], [45.628724, 8.881297], [45.628753, 8.88132], [45.6289, 8.882225], [45.628926, 8.882476], [45.628887, 8.882556], [45.628708, 8.882614], [45.628665, 8.882625], [45.628649, 8.882663], [45.628623, 8.882642], [45.628558, 8.882659], [45.628569, 8.882724], [45.628332, 8.882793], [45.628342, 8.882853], [45.628286, 8.882869], [45.628221, 8.882888], [45.628214, 8.882851], [45.627878, 8.882965], [45.627868, 8.882912], [45.627542, 8.883034], [45.627259, 8.881606], [45.627361, 8.881566], [45.627765, 8.881405], [45.628217, 8.881252], [45.628716, 8.881087]]
+POI way 261605323 {"denomination": "catholic", "landuse": "cemetery", "name": "Cimitero di Marnate", "religion": "christian", "wikidata": "Q56249895"} bbox 45.626927 8.910922 45.628844 8.912542 geom [[45.62871, 8.910922], [45.628844, 8.911383], [45.628223, 8.911752], [45.628257, 8.911869], [45.627126, 8.912542], [45.626927, 8.911858], [45.628054, 8.911188], [45.628085, 8.911294], [45.62871, 8.910922]]
+POI node 3467349662 {"entrance": "yes"} at 45.615083 8.893747
+POI node 3467349663 {"entrance": "yes"} at 45.61568 8.89473
+POI node 3569364711 {"barrier": "gate"} at 45.628286 8.882869
+POI node 3569364720 {"barrier": "gate"} at 45.628719 8.881282
+POI node 7472094285 {"barrier": "gate"} at 45.637429 8.906185
+POI node 1127675456 {"amenity": "parking"} at 45.612167 8.892632
+POI way 123186216 {"access": "yes", "amenity": "parking", "capacity": "24", "fee": "no", "parking": "surface", "surface": "sett"} at 45.629859 8.886375
+POI way 220321885 {"amenity": "parking", "parking": "street_side"} at 45.624938 8.883768
+POI way 222380793 {"amenity": "parking", "parking": "surface"} at 45.628251 8.87884
+POI way 222386515 {"access": "private", "amenity": "parking", "fee": "no", "parking": "surface", "surface": "asphalt"} at 45.6273 8.878687
+POI way 226907337 {"amenity": "parking", "name": "Piazzale Natale Colombo"} at 45.615656 8.895185
+POI way 228201716 {"amenity": "parking", "parking": "surface"} at 45.629001 8.881459
+POI way 239612063 {"amenity": "parking", "parking": "surface"} at 45.640081 8.905432
+POI way 263094328 {"access": "customers", "amenity": "parking", "fee": "no", "parking": "surface", "surface": "paving_stones"} at 45.625545 8.879535
+POI way 339513096 {"amenity": "parking", "parking": "surface"} at 45.614753 8.893346
+POI way 368161226 {"amenity": "parking", "fee": "no", "park_ride": "no", "parking": "surface", "supervised": "no"} at 45.637155 8.905605
+POI way 382574268 {"amenity": "parking", "parking": "surface"} at 45.612476 8.896163
+POI way 382574282 {"amenity": "parking", "parking": "surface"} at 45.613241 8.895805
+POI way 382574283 {"amenity": "parking", "parking": "surface"} at 45.612046 8.895573
+POI way 382574284 {"amenity": "parking", "parking": "surface"} at 45.612144 8.89611
+POI way 382574340 {"amenity": "parking", "parking": "surface"} at 45.612066 8.894833
+POI way 382574342 {"amenity": "parking", "parking": "surface"} at 45.612329 8.894687
+POI way 383972349 {"access": "yes", "amenity": "parking", "parking": "surface"} at 45.617137 8.894215
+POI way 383972350 {"access": "private", "amenity": "parking", "parking": "surface"} at 45.616229 8.894975
+POI way 383972351 {"access": "private", "amenity": "parking"} at 45.616674 8.894757
+POI way 462799628 {"amenity": "parking"} at 45.638665 8.908249
+POI way 530777297 {"access": "customers", "amenity": "parking", "fee": "no", "parking": "surface", "surface": "paving_stones"} at 45.637119 8.907423
+POI way 653715221 {"access": "yes", "amenity": "parking", "fee": "no", "orientation": "perpendicular", "parking": "street_side", "surface": "asphalt"} at 45.631457 8.883742
+POI way 798292879 {"amenity": "parking", "fee": "no"} at 45.636161 8.9077
+POI way 1234274820 {"access": "yes", "amenity": "parking", "fee": "no", "parking": "surface", "surface": "asphalt"} at 45.625362 8.878527
+POI way 1237219501 {"access": "yes", "amenity": "parking", "capacity": "11", "capacity:disabled": "0", "fee": "no", "parking": "surface"} at 45.626851 8.915923
+POI way 1237219502 {"access": "yes", "amenity": "parking", "fee": "no", "parking": "surface"} at 45.626693 8.915567
+POI way 1237219503 {"access": "yes", "amenity": "parking", "fee": "no", "parking": "surface"} at 45.626476 8.91514
+POI way 1237219504 {"access": "yes", "amenity": "parking", "fee": "no", "parking": "surface"} at 45.626378 8.915202
+POI way 1237219506 {"access": "yes", "amenity": "parking", "fee": "no", "parking": "surface", "surface": "asphalt"} at 45.626069 8.913933
+POI way 1237219508 {"access": "yes", "amenity": "parking", "capacity": "3", "capacity:disabled": "0", "fee": "no", "surface": "asphalt"} at 45.626044 8.914214
+POI way 1348000946 {"amenity": "parking", "parking": "surface"} at 45.640512 8.906821
+POI way 1364878421 {"access": "yes", "amenity": "parking", "fee": "no", "parking": "surface", "surface": "paving_stones"} at 45.628565 8.883284
+POI way 1364878422 {"access": "yes", "amenity": "parking", "fee": "no", "parking": "surface", "surface": "paving_stones"} at 45.627797 8.883213
+POI way 1366696956 {"access": "yes", "amenity": "parking", "capacity": "7", "capacity:disabled": "0", "fee": "no", "orientation": "perpendicular", "parking": "street_side", "surface": "asphalt"} at 45.624498 8.880866
+POI way 1366701169 {"access": "yes", "amenity": "parking", "fee": "no", "parking": "surface", "surface": "asphalt"} at 45.624673 8.883683
+POI way 1366708221 {"access": "yes", "amenity": "parking", "fee": "no", "parking": "surface", "surface": "asphalt"} at 45.625271 8.885994
+POI way 1367424955 {"access": "yes", "amenity": "parking", "capacity": "4", "capacity:disabled": "0", "fee": "no", "orientation": "parallel", "parking": "street_side", "surface": "asphalt"} at 45.629243 8.887023
+POI way 1367424956 {"access": "yes", "amenity": "parking", "capacity": "4", "capacity:disabled": "1", "fee": "no", "orientation": "parallel", "parking": "street_side", "surface": "asphalt"} at 45.629465 8.886903
+POI way 1369595123 {"access": "yes", "amenity": "parking", "fee": "no", "parking": "surface", "surface": "concrete"} at 45.628519 8.886417
+POI way 1369622008 {"access": "yes", "amenity": "parking", "fee": "no", "parking": "surface", "surface": "asphalt"} at 45.630146 8.882565
+POI way 1391532542 {"access": "yes", "amenity": "parking", "capacity": "4", "capacity:disabled": "0", "fee": "no", "parking": "surface", "surface": "paving_stones"} at 45.613556 8.895181
+POI way 1391532543 {"access": "yes", "amenity": "parking", "capacity": "4", "capacity:disabled": "1", "fee": "no", "parking": "surface", "surface": "paving_stones"} at 45.61345 8.895013
+POI way 1391532544 {"access": "yes", "amenity": "parking", "capacity": "5", "capacity:disabled": "0", "fee": "no", "orientation": "perpendicular", "parking": "street_side", "surface": "asphalt"} at 45.613706 8.895449
+POI way 1471994045 {"amenity": "parking"} at 45.639691 8.906629
+POI way 1471994046 {"amenity": "parking"} at 45.639524 8.906103
+POI way 1496289848 {"access": "yes", "amenity": "parking", "capacity": "3", "capacity:disabled": "1", "orientation": "parallel", "parking": "street_side", "surface": "asphalt"} at 45.626009 8.880266
+POI way 1496289850 {"access": "customers", "amenity": "parking", "capacity": "2", "capacity:disabled": "0", "fee": "no", "orientation": "perpendicular", "parking": "street_side", "surface": "asphalt"} at 45.626029 8.8801
+POI way 1496289851 {"access": "customers", "amenity": "parking", "capacity": "2", "capacity:disabled": "0", "fee": "no", "orientation": "perpendicular", "parking": "street_side", "surface": "asphalt"} at 45.626087 8.880076
+POI way 1496289859 {"access": "yes", "amenity": "parking", "capacity:disabled": "0", "fee": "no", "orientation": "parallel", "parking": "street_side", "surface": "asphalt"} at 45.630005 8.886627
+POI way 1496289860 {"access": "yes", "amenity": "parking", "capacity:disabled": "0", "fee": "no", "orientation": "parallel", "parking": "street_side", "surface": "asphalt"} at 45.630219 8.886552
+POI way 1496289861 {"access": "yes", "amenity": "parking", "capacity": "1", "capacity:disabled": "0", "fee": "no", "orientation": "parallel", "parking": "street_side", "surface": "asphalt"} at 45.630366 8.886501
+POI way 1497768551 {"access": "yes", "amenity": "parking", "capacity:disabled": "1", "fee": "no", "orientation": "parallel", "parking": "street_side", "surface": "asphalt"} at 45.624109 8.88278
+POI way 1497768562 {"access": "yes", "amenity": "parking", "capacity": "3", "capacity:disabled": "0", "fee": "no", "orientation": "parallel", "parking": "street_side", "surface": "asphalt"} at 45.62464 8.884573
+POI way 1497768563 {"access": "yes", "amenity": "parking", "capacity": "2", "capacity:disabled": "0", "fee": "no", "orientation": "parallel", "parking": "street_side", "surface": "asphalt"} at 45.624813 8.884514
+POI way 1497768564 {"access": "yes", "amenity": "parking", "capacity": "2", "capacity:disabled": "0", "fee": "no", "orientation": "parallel", "parking": "street_side", "surface": "asphalt"} at 45.625063 8.884582
+POI way 1499973462 {"access": "yes", "amenity": "parking", "capacity:disabled": "0", "fee": "no", "orientation": "parallel", "parking": "street_side", "surface": "asphalt"} at 45.628977 8.882228
+POI way 1499973463 {"access": "yes", "amenity": "parking", "capacity:disabled": "0", "fee": "no", "orientation": "parallel", "parking": "street_side", "surface": "asphalt"} at 45.628874 8.881583
+POI way 1501391075 {"access": "yes", "amenity": "parking", "capacity": "11", "capacity:disabled": "1", "fee": "no", "orientation": "perpendicular", "parking": "street_side", "surface": "asphalt"} at 45.62612 8.916807
+POI way 1501391077 {"access": "yes", "amenity": "parking", "capacity": "4", "capacity:disabled": "0", "fee": "no", "orientation": "perpendicular", "parking": "street_side", "surface": "asphalt"} at 45.626306 8.916778
+POI way 1501542713 {"access": "yes", "amenity": "parking", "capacity": "6", "capacity:disabled": "0", "fee": "no", "orientation": "diagonal", "parking": "street_side", "surface": "asphalt"} at 45.629141 8.90734
+POI way 1501542714 {"access": "yes", "amenity": "parking", "capacity": "3", "capacity:disabled": "1", "fee": "no", "orientation": "diagonal", "parking": "street_side", "surface": "asphalt"} at 45.628657 8.90763
